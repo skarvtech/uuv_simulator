@@ -1,19 +1,23 @@
 <launch>
-  <!-- Remember to first launch Gazebo with a underwater world model
-  Example:
-  >> roslaunch uuv_description ocean_waves.launch
-    or
-  >> roslaunch uuv_description empty_underwater_world.launch
-
-  The default joystick configuration is set for the XBox 360 controller
+  <!--  Remember to first launch Gazebo with a underwater world model
+        Example:
+        >> roslaunch uuv_description ocean_waves.launch
+        or
+        >> roslaunch uuv_description empty_underwater_world.launch
   -->
+
   <arg name="x" default="35"/>
   <arg name="y" default="-20"/>
   <arg name="z" default="-85"/>
   <arg name="yaw" default="3.0"/>
   <arg name="namespace" default="rexrov"/>
+  <arg name="gripper_open_button" default="1"/>
+  <arg name="gripper_close_button" default="2"/>
+  <arg name="axis_azimuth" default="0"/>
+  <arg name="axis_shoulder" default="1"/>
+  <arg name="axis_wrist" default="3"/>
 
-  <include file="$(find uuv_descriptions)/launch/upload_rexrov_oberon_arms.launch">
+  <include file="$(find uuv_descriptions)/launch/upload_rexrov_oberon4.launch">
     <arg name="namespace" value="$(arg namespace)"/>
     <arg name="x" value="$(arg x)"/>
     <arg name="y" value="$(arg y)"/>
@@ -42,6 +46,13 @@
     </node>
   </group>
 
-  <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find uuv_gazebo)/rviz/rexrov_default.rviz"/>
-
+  <include file="$(find oberon4_control)/launch/joint_control_velocity.launch">
+    <arg name="uuv_name" value="$(arg namespace)"/>
+    <arg name="arm_name" value="oberon4"/>
+    <arg name="gripper_open_button" value="$(arg gripper_open_button)"/>
+    <arg name="gripper_close_button" value="$(arg gripper_close_button)"/>
+    <arg name="axis_azimuth" value="$(arg axis_azimuth)"/>
+    <arg name="axis_shoulder" value="$(arg axis_shoulder)"/>
+    <arg name="axis_wrist" value="$(arg axis_wrist)"/>
+  </include>
 </launch>
