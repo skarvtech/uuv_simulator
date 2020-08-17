@@ -19,6 +19,7 @@
 
   <xacro:arg name="debug" default="0"/>
   <xacro:arg name="namespace" default="rexrov"/>
+  <xacro:arg name="config" default="base"/>
   <xacro:arg name="inertial_reference_frame" default="world"/>
   <!-- Include the ROV macro file -->
   <xacro:include filename="$(find uuv_descriptions)/urdf/rexrov_base.xacro"/>
@@ -46,6 +47,13 @@
   <xacro:oberon4 namespace="oberon4" parent="$(arg namespace)/base_link">
     <origin xyz="1.3 0.5 -0.615" rpy="0 0 0"/>
   </xacro:oberon4>
+  
+  <xacro:property name="sensor_config" value="$(arg config)"/>
+  <xacro:if value="${sensor_config == 'sonar'}">
+    <xacro:forward_multibeam_sonar_m450_130 namespace="$(arg namespace)" parent_link="$(arg namespace)/base_link">
+      <origin xyz="1.4 0 0.65" rpy="0 0 0"/>
+    </xacro:forward_multibeam_sonar_m450_130>
+ </xacro:if>
 
   <gazebo>
       <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">

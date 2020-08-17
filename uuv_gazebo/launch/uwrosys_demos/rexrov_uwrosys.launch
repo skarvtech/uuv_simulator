@@ -4,7 +4,7 @@
   <arg name="y" default="0"/>
   <arg name="z" default="-30"/>
   <arg name="yaw" default="0.0"/>
-  <arg name="launch_rviz" default="1"/>
+  <arg name="launch_rviz" default="0"/>
 
   <include file="$(find uuv_descriptions)/launch/upload_rexrov.launch">
     <arg name="mode" value="default"/>

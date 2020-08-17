@@ -15,7 +15,8 @@
   <arg name="gripper_close_button" default="3"/>
   <arg name="deadman_button" default="7"/>
   <arg name="exclusion_button" default="6"/>
-  <arg name="launch_rviz" default="1"/>
+  <arg name="config" default="sonar"/>
+  <arg name="launch_rviz" default="0"/>
 
   <include file="$(find uuv_descriptions)/launch/upload_rexrov_oberon4.launch">
     <arg name="namespace" value="$(arg namespace)"/>
@@ -23,6 +24,7 @@
     <arg name="y" value="$(arg y)"/>
     <arg name="z" value="$(arg z)"/>
     <arg name="yaw" value="$(arg yaw)"/>
+    <arg name="config" default="$(arg config)"/>
   </include>
 
   <include file="$(find uuv_thruster_manager)/launch/thruster_manager.launch">
@@ -56,6 +58,6 @@
   </include>
   
   <group if="$(arg launch_rviz)">
-    <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find uuv_gazebo)/rviz/rexrov_default.rviz"/>
+    <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find uuv_gazebo)/rviz/rexrov_sonar.rviz"/>
   </group>
 </launch>
