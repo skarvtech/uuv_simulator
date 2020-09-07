@@ -4,10 +4,11 @@
   <arg name="y" default="0"/>
   <arg name="z" default="-30"/>
   <arg name="yaw" default="0.0"/>
+  <arg name="mode" default="sonar"/>
   <arg name="launch_rviz" default="0"/>
 
   <include file="$(find uuv_descriptions)/launch/upload_rexrov.launch">
-    <arg name="mode" value="default"/>
+    <arg name="mode" value="$(arg mode)"/>
     <arg name="namespace" value="$(arg namespace)"/>
     <arg name="x" value="$(arg x)"/>
     <arg name="y" value="$(arg y)"/>
@@ -37,6 +38,6 @@
   </group>
 
   <group if="$(arg launch_rviz)">
-    <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find uuv_gazebo)/rviz/rexrov_default.rviz"/>
+    <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find uuv_gazebo)/rviz/rexrov_$(arg mode).rviz"/>
   </group>
 </launch>
